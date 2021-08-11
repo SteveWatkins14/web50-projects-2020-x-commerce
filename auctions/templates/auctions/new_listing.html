@@ -1,0 +1,57 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+    <div id="new-listing" class="container">
+        
+        <h4>New Listing</h4>
+        <form action="{% url 'new_listing' %}" method="post">
+            {% csrf_token %} 
+            <div class="form-group">
+                <label for="listing-title">{{ form.title.label }}<i class="text-danger">*</i></label>
+                {{ form.title }}
+                {% if form.errors.title %}
+                <small class="text-danger">{{ form.errors.title.as_text }}</small>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="listing-discription">{{ form.discription.label }}<i class="text-danger">*</i></label>
+                {{ form.discription }}
+                {% if form.errors.discription %}
+                <small class="text-danger">{{ form.errors.discription.as_text }}</small>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="listing-price">{{ form.price.label }}<i class="text-danger">*</i></label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">£</span>
+                    </div>
+                    {{ form.price }}
+                    <div class="input-group-append">
+                        <span class="input-group-text">.00</span>
+                    </div>
+                </div>
+                {% if form.errors.price %}
+                <small class="text-danger">{{ form.errors.price.as_text }}</small>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="listing-image_url">{{ form.image_url.label }}</label>
+                {{ form.image_url }}
+                {% if form.errors.image_url %}
+                <small class="text-danger">{{ form.errors.image_url.as_text }}</small>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="listing-category">{{ form.category.label }}</label>
+                {{ form.category }}
+                {% if form.errors.category %}
+                <small class="text-danger">{{ form.errors.category.as_text }}</small>
+                {% endif %}
+            </div>
+            <button class="btn btn-primary" type="submit" formnovalidate>Submit</button>
+        </form>
+    </div>
+
+{% endblock %}

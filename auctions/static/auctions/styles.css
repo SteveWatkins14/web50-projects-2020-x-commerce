@@ -1,3 +1,118 @@
 body {
-    padding: 10px;
+    overflow-y: scroll;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
+img {
+    width: 250px;
+    height: 250px;
+}
+
+/* Nav */
+
+#greeting p {
+    margin-bottom: 0.5rem;
+}
+
+.dropdown-item:hover {
+    color: #FFF !important;
+    background-color: #343a40;
+}
+
+/* Active Listings/Categories/Watchlist  */
+
+.container {
+    padding-top: 1%;
+    max-width: 100%;
+}
+
+.listing {
+    margin-top: 1%;
+}
+
+.listing-link {
+    text-decoration: none !important;
+    color: black;
+}
+
+.listing-link p {
+    width: 250px;
+    margin-bottom: 0%;
+}
+
+.listing-discription {
+
+    /* Code snippet sourced from https://stackoverflow.com/questions/3922739/limit-text-length-to-n-lines-using-css*/
+    /* Posted by Evgeny */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 4; /* number of lines to show */
+    -webkit-box-orient: vertical;
+}
+
+/* New Listing */
+#new-listing, #login-form, #register-form {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Display Listing */
+
+#listing {
+    margin-top: 1%;
+}
+
+#l-img {
+    width: 500px;
+    height: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#l-title, #l-discription {
+    width: 500px;
+    margin-right: auto;
+}
+
+#l-current-bid {
+    margin-bottom: 0.5%;
+}
+
+#watchlist-form, #close-bid {
+    margin-top: 0.5%;
+}
+
+
+/* Comments */
+
+#comment-form, #comments-ctr {
+    padding-left: 1%;
+    padding-right: 1%;
+}
+
+#comment-form button {
+    margin-top: 0.5%;
+}
+
+#comments-ctr {
+    padding-top: 1%;
+}
+
+#comments {
+    height: 200px;
+    overflow-y: scroll;
+  }
+
+  .comment {
+    background-color: #e8e8e8;
+    margin-bottom: 0%;
+    padding-left: 0.5%;
+    padding-top: 0.5%;
+  }
+
+  .comment p {
+    padding-bottom: 1%; 
+    margin-bottom: 0%;
+  }

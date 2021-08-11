@@ -1,0 +1,28 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+<!-- Layout sourced from https://stackoverflow.com/questions/20309593/django-template-to-populate-bootstrap-rows-and-columns
+     commenter Arpit. -->
+
+<div class="container">
+<div class="row justify-content-between">
+
+    {% for key, value in CATEGORY_IMAGE_URLS.items %}
+    <div class="col-md-3 d-flex justify-content-center listing">
+        <a class="listing-link" href="{% url 'category' key %}">
+        <img class="listing-img" src="{{ value }}">
+        <p class="font-weight-bold">{{ key }}</p>
+        </a>
+    </div>
+
+        <!-- if last column in row -->
+        {% if forloop.counter|divisibleby:"4" and not forloop.last %}
+        </div><div class="row justify-content-between">
+        {% endif %}
+
+    {% endfor %}
+
+</div>
+</div>
+{% endblock %}
