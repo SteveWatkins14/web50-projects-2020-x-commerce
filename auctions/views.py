@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.urls import reverse
 
-from .models import Listing, User, Watchlist
+from .models import Comment, Listing, Bid, User, Watchlist
 from .forms import BidForm, CommentForm, ListingForm
 from .Category import *
 from .Constants import CATEGORY_IMAGE_URLS
@@ -70,7 +70,7 @@ def register(request):
         return render(request, "auctions/register.html")
 
 
-@login_required
+@login_required(login_url="index")
 def new_listing(request):
     form = ListingForm()
     
@@ -87,22 +87,22 @@ def new_listing(request):
     })
 
 
-@login_required
+@login_required(login_url="index")
 def listing(request, listing_id):
     listing = Listing.objects.get(pk=listing_id)
     watchlist = listing.watchlist.all().filter(user=request.user)
-    comments = listing.comments.all().order_by("-created")
+    comments = Comment.objects.all().filter(listing=listing)
     bidform = BidForm()
     commentform = CommentForm()
     
     if request.method == "POST":
         if request.POST.get("form_type") == "bid_form":
             bidform = BidForm(request.POST, user=request.user, listing=listing)
-            if bidform.is_valid():               
+            if bidform.is_valid():             
                 bid = bidform.save(commit=False)
                 bid.user = request.user
+                bid.listing = listing
                 bid.save()
-                listing.bids.add(bid)
                 listing.price = bid.amount
                 listing.save()
                 return redirect("listing", listing_id)
@@ -112,9 +112,8 @@ def listing(request, listing_id):
             if commentform.is_valid():
                 comment = commentform.save(commit=False)
                 comment.user = request.user
+                comment.listing = listing
                 comment.save()
-                listing.comments.add(comment)
-                listing.save()
                 return redirect("listing", listing_id)
 
         if request.POST.get("form_type") == "toggle_watchlist":
@@ -126,7 +125,7 @@ def listing(request, listing_id):
             return redirect("listing", listing_id)
 
         if request.POST.get("form_type") == "close_listing":
-            bids = listing.bids.all().order_by("-amount")
+            bids = Bid.objects.all().filter(listing=listing).order_by("-amount")
             if bids:
                 listing.owner = bids[0].user
             listing.active = False
@@ -142,7 +141,7 @@ def listing(request, listing_id):
     })
 
 
-@login_required
+@login_required(login_url="index")
 def watchlist(request):
 
     watchlist = []

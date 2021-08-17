@@ -22,8 +22,6 @@ class ListingForm(forms.ModelForm):
             exclude = (
                 'owner',
                 'active',
-                'bids',
-                'comments'
             )
             
 class BidForm(forms.ModelForm):
@@ -50,6 +48,7 @@ class BidForm(forms.ModelForm):
         model = Bid
         exclude = (
             'user',
+            'listing'
         )
 
     
@@ -64,5 +63,6 @@ class CommentForm(forms.ModelForm):
         model = Comment
         exclude = (
             'user',
+            'listing',
             'created'
         )
